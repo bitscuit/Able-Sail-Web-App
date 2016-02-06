@@ -17,20 +17,9 @@ class Database_Reader
 
 	}
    
-   function names()
-   {
-      $users = $this->dbh->query("SELECT * FROM `user`");
-      foreach ($users as $row){
-         foreach ($row as $item){
-            echo $item . " ";
-         }
-         echo "\n";
-      }
-   }
-   
    /* 
-   *Returns true if a user has a valid username and a valid passwords 
-   *correspinding to that username. Otherwise, returns false
+   * Returns true if a user has a valid username and a valid passwords 
+   * correspinding to that username. Otherwise, returns false
    */
    function valid_user($username, $pw)
    {
@@ -52,7 +41,6 @@ class Database_Reader
          echo "Database error: too many users with same username";
          return FALSE;
       }
-
    }
    
 }
