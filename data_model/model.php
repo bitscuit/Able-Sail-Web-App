@@ -1,12 +1,13 @@
+
 <?php
 
 class Database_Reader
 {
-	public $dbh;
+	private $dbh;
 
 	function __construct() {
 		try {
-      		$this->dbh = new PDO("mysql:host=kevinzuern.com;dbname=propheis_ablesail", "propheis_able", "Ablesail");
+      		$this->dbh = new PDO("mysql:host=kevinzuern.com;dbname=propheis_ablesail", "propheis_able", "Ablesail") or die("Couldn't connect to the database.");
       		$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    		}
    
@@ -16,12 +17,23 @@ class Database_Reader
    		}
 
 	}
+
+   public function get_registrations($email) {
+      $query = "SELECT * FROM `infosheet` WHERE email = " . "\"".$email . "\"";
+      
+      $data = $this->dbh->query($query);
+
+      return $data->fetch();
+   }
+   public function get_registration($ID) {
+      $query = "SELECT * FROM `infosheet` WHERE ID = " . "\"".$ID . "\"";
+      
+      $data = $this->dbh->query($query);
+
+      return $data->fetch();
+   }
    
-   /* 
-   * Returns true if a user has a valid username and a valid passwords 
-   * correspinding to that username. Otherwise, returns false
-   */
-   function valid_user($username, $pw)
+   public function valid_user($username, $pw)
    {
       $users = $this->dbh->query("SELECT `password` FROM `user` 
          WHERE `username`='".$username."'
@@ -42,8 +54,5 @@ class Database_Reader
          return FALSE;
       }
    }
-   
 }
-
-
 ?>
