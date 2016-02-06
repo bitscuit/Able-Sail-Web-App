@@ -6,8 +6,6 @@ SET time_zone = "+00:00";
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8 */;
 
-CREATE DATABASE IF NOT EXISTS `propheis_ablesail` DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
-USE `propheis_ablesail`;
 
 CREATE TABLE IF NOT EXISTS `infosheet` (
   `ID` int(4) NOT NULL,
@@ -25,12 +23,8 @@ CREATE TABLE IF NOT EXISTS `infosheet` (
   `walker` tinyint(1) NOT NULL,
   `other` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `transfer_assistance` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `disabilities` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `waiver` tinyint(1) NOT NULL,
-  `start_date` date DEFAULT NULL,
-  `end_date` date DEFAULT NULL,
-  `networkID` varchar(255) COLLATE utf8_unicode_ci NOT NULL
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+  `disabilities` varchar(255) COLLATE utf8_unicode_ci NOT NULL
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 CREATE TABLE IF NOT EXISTS `user` (
   `ID` int(11) NOT NULL,
@@ -40,9 +34,15 @@ CREATE TABLE IF NOT EXISTS `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
-ALTER TABLE `user`
-  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `ID_UNIQUE` (`ID`);
+ALTER TABLE `infosheet`
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `ID` (`ID`), ADD UNIQUE KEY `email` (`email`), ADD KEY `ID_2` (`ID`);
 
+ALTER TABLE `user`
+  ADD PRIMARY KEY (`ID`), ADD UNIQUE KEY `ID_UNIQUE` (`ID`), ADD KEY `ID` (`ID`);
+
+
+ALTER TABLE `infosheet`
+  MODIFY `ID` int(4) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
