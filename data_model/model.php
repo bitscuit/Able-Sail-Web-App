@@ -1,3 +1,4 @@
+
 <?php
 
 class Database_Reader
@@ -30,6 +31,28 @@ class Database_Reader
       $data = $this->dbh->query($query);
 
       return $data->fetch();
+   }
+   
+   public function valid_user($username, $pw)
+   {
+      $users = $this->dbh->query("SELECT `password` FROM `user` 
+         WHERE `username`='".$username."'
+         AND `password`='".$pw."'
+      ");
+      
+      if (count($users) == 0){
+         //No users available
+         return FALSE;
+      } 
+      elseif (count($users) == 1) {
+         foreach ($users as $i){
+            return $i['password'] == $pw; // double layer of safety
+         }
+      } else{
+         // fatal error
+         echo "Database error: too many users with same username";
+         return FALSE;
+      }
    }
 }
 ?>
