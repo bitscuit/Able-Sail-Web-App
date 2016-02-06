@@ -17,11 +17,19 @@ class Database_Reader
 
 	}
 
-   public function get_registration($email) {
-      $query = "SELECT * FROM `infosheet` WHERE `email` = " . "\"".$email . "\"";
+   public function get_registrations($email) {
+      $query = "SELECT * FROM `infosheet` WHERE email = " . "\"".$email . "\"";
+      
       $data = $this->dbh->query($query);
 
-      var_dump($data);
+      return $data->fetch();
+   }
+   public function get_registration($ID) {
+      $query = "SELECT * FROM `infosheet` WHERE ID = " . "\"".$ID . "\"";
+      
+      $data = $this->dbh->query($query);
+
+      return $data->fetch();
    }
 }
 ?>
