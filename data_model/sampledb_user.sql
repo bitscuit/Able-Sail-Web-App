@@ -32,6 +32,37 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
+DROP TABLE IF EXISTS `infosheet`
+
+CREATE TABLE `infosheet`
+(
+`ID` int NOT NULL UNIQUE,
+`first_name` varchar(255),
+`last_name` varchar(255),
+`address` varchar(255),
+`phone` varchar(255),
+`email` varchar(255),
+`emergency_contact` varchar(255),
+`lenses` int,
+`wheelchair_power` varchar(255),
+`wheelchair_manual` varchar(255),
+`scooter` varchar(255),
+`cane` varchar(255),
+`walker` varchar(255),
+`other` varchar(255),
+`transfer_assistance` varchar(255),
+`disabilities` varchar(255),
+`waver` int,
+`start_date` varchar(255),
+`end_date` varchar(255),
+`networkID` varchar(255),
+
+PRIMARY KEY (ID)
+  UNIQUE KEY `ID_UNIQUE` (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+
 --
 -- Dumping data for table `user`
 --
