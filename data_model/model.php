@@ -2,12 +2,12 @@
 
 class Database_Reader
 {
-	public $dbh;
+	private $dbh;
 
 	function __construct() {
 		try {
-      		$this->$dbh = new PDO("mysql:host=kevinzuern.com;dbname=propheis_ablesail", "propheis_able", "Ablesail");
-      		$dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+      		$this->dbh = new PDO("mysql:host=kevinzuern.com;dbname=propheis_ablesail", "propheis_able", "Ablesail") or die("Couldn't connect to the database.");
+      		$this->dbh->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
    		}
    
    		catch(PDOException $e)
@@ -16,5 +16,12 @@ class Database_Reader
    		}
 
 	}
+
+   public function get_registration($email) {
+      $query = "SELECT * FROM `infosheet` WHERE `email` = " . "\"".$email . "\"";
+      $data = $this->dbh->query($query);
+
+      var_dump($data);
+   }
 }
 ?>
