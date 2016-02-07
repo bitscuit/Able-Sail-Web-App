@@ -36,29 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 	<section class="container">
 		<h1>Create Account</h1>
-	<form action="./createAccount.php" method="post" id="form" onsubmit="return finalValidate('username', 'results')">
-		<!-- <table>
-			<tr>
-				<td>Username</td>
-				<td><input type="text" name="username" maxlength="16" id="username" onKeyUp="updateLength('username', 'usernameLength')"> <div id="usernameLength"></div></td>
-			</tr>
-			<tr>
-				<td>PassWord</td>
-				<td><input type="password" name="password" maxlength="50" id="password" onKeyUp="updateLength('password', 'passStrength')"><div id="passStrength"></div><br /><div id="passLength"></div><td>
-			</tr>
-			<tr>
-				<td>Confirm Password</td>
-				<td><input type="password" name="cPassword" maxlength="25" id="cPassword" onKeyUp="updateLength('cPassword', 'cPassLength'); comparePass('password', 'cPassword', 'cPassResult');"> <span id="cPassResult"></span><br /><div id="cPassLength"></div><td>
-			</tr>
-			<tr>
-				<td>Email</td>
-				<td><input type="email" name="email" maxLength="50" id="email"><br /><div id="emailLength"></div></td>
-			</tr>
-			<tr>
-				<td colspan="2"><input type="submit" name="submit" value="Create Account"></td>
-			</tr>
-		</table> -->
-		
+	<form action="register.php" method="post" id="form" onsubmit="return finalValidate('username', 'results')">
 		<div class="form-group">
 			<label for="username">Enter your Username: </label>
 			<input class="form-control" type="text" name="username">
@@ -76,7 +54,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 			<input class="form-control" type="email" name="email">
 		</div>
 		<div class="form-group">
-			<input  type="submit" class="btn btn-primary form-control">
+			<input type="submit" class="btn btn-primary form-control">
 		</div>
 
 		<h3 id="results"><h3>
