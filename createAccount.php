@@ -1,20 +1,22 @@
 <?php
-	if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 		// Get form information and store within variable
-		$username = ($_POST["username"]);
-		$email = ($_POST["email"]);
-		$password = ($_POST["password"]);
-		$cPassword = ($_POST["cPassword"]);	
+	$username = ($_POST["username"]);
+	$email = ($_POST["email"]);
+	$password = ($_POST["password"]);
+	$cPassword = ($_POST["cPassword"]);	
 		// Include helper functions
-		include("./data_model/model.php");
+	include("./data_model/model.php");
 
-		$model = new Database_Reader;
+	$model = new Database_Reader;
 
 		// If valid user, insert information into database
-		if ($model->valid_user($username, $password) === true){
-			$model->new_user($username, $email, $password);
-		};
+	if ($model->valid_user($username, $password) === true){
+		$model->new_user($username, $email, $password);
 	};
+
+	header('Location: register.php');
+};
 ?>
 
 <!DOCTYPE html>
@@ -28,13 +30,14 @@
 
 	<!--Bootstrap-->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css" integrity="sha384-fLW2N01lMqjakBkx3l/M9EahuwpSfeNvV63J5ezn3uZzapT0u7EYsXMjQV+0En5r" crossorigin="anonymous">
+	<link rel="stylesheet" href="demoFiles/theme.min.css">
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1>Create Account</h1>
+	<section class="container">
+		<h1>Create Account</h1>
 	<form action="./createAccount.php" method="post" id="form" onsubmit="return finalValidate('username', 'results')">
-		<table>
+		<!-- <table>
 			<tr>
 				<td>Username</td>
 				<td><input type="text" name="username" maxlength="16" id="username" onKeyUp="updateLength('username', 'usernameLength')"> <div id="usernameLength"></div></td>
@@ -54,8 +57,30 @@
 			<tr>
 				<td colspan="2"><input type="submit" name="submit" value="Create Account"></td>
 			</tr>
-		</table>
+		</table> -->
+		
+		<div class="form-group">
+			<label for="username">Enter your Username: </label>
+			<input class="form-control" type="text" name="username">
+		</div>
+		<div class="form-group">
+			<label for="password">Enter your Password: </label>
+			<input class="form-control" type="password" name="password">
+		</div>
+		<div class="form-group">
+			<label for="password">Confirm your password: </label>
+			<input class="form-control" type="password" name="password">
+		</div>
+		<div class="form-group">
+			<label for="email">Enter your Email: </label>
+			<input class="form-control" type="email" name="email">
+		</div>
+		<div class="form-group">
+			<input  type="submit" class="btn btn-primary form-control">
+		</div>
+
 		<h3 id="results"><h3>
-	</form>
+		</form>
+	</section>		
 </body>
 </html>
