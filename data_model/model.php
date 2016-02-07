@@ -32,12 +32,6 @@ class Database_Reader
 
       return $data->fetch();
    }
-
-   public function get_all_registrations() {
-      $query = "SELECT * FROM `infosheet`";
-      $data = $this->dbh->query($query);
-      return $data->fetch();
-   }
    
    public function valid_user($username, $pw)
    {
@@ -90,6 +84,15 @@ class Database_Reader
       }
    }
    
+   public function change_email($username, $new_email)
+   {
+      $this->dbh->query(
+      "UPDATE `user` SET `email`='".$new_email."' 
+         WHERE `username`='".$username."' 
+      ");
+   }
 }
+
+
 
 ?>
