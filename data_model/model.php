@@ -32,13 +32,11 @@ class Database_Reader
 
       return $data->fetch();
    }
-
    public function get_all_registrations() {
       $query = "SELECT * FROM `infosheet`";
       $data = $this->dbh->query($query);
       return $data->fetchAll();
    }
-   
    public function valid_user($username, $pw)
    {
       $users = $this->dbh->query("SELECT `password` FROM `user` 
@@ -48,7 +46,7 @@ class Database_Reader
       
       if (count($users) == 0){
          //No users available
-         return FALSE;
+         return 0;
       } 
       elseif (count($users) == 1) {
          foreach ($users as $i){
@@ -57,8 +55,74 @@ class Database_Reader
       } else{
          // fatal error
          echo "Database error: too many users with same username";
-         return FALSE;
+         return 0;
+      }
+   }
+   
+   public function new_user($username, $email, $password)
+   {
+      try{
+         $users = $this->dbh->exec(
+            "INSERT INTO `user` VALUES(
+               0, 
+               '".$username."',
+               '".$email."',
+               '".$password."'
+            )"
+         );
+      } catch (PDOException $e){
+         if ($e->errorInfo[1] == 1062){
+            echo "Username or email already exists in DB \n";
+         } else { // other exception
+            echo $e;
+         }
+      }
+   }
+   
+   public function delete_user($username)
+   {
+      try{
+         $this->dbh->query(" DELETE FROM `user` WHERE `username`='".$username."' ");
+      } catch (PDOException $e){
+         echo $e;
+      }
+   }
+   
+   public function change_email($username, $new_email)
+   {
+      $this->dbh->query(
+      "UPDATE `user` SET `email`='".$new_email."' 
+         WHERE `username`='".$username."' 
+      ");
+   }
+   
+   /* reads evrything from the database, and prints it*/
+   public function read_db($db){
+      $a = $this->dbh->query("SELECT * FROM `".$db."` ");
+      foreach ($a as $b){
+         for($i = 0; $i < count($b); $i += 1){
+            echo $b[$i] . " ";
+         }
+         echo "\n";
+      }
+   }
+   
+   /*change a specific column for a given row by their username
+   Do not include the `` characters when inputting data*/
+   public function change_user_column($column, $new_data, $username)
+   {
+      try{
+         $this->dbh->query(
+         "UPDATE `user` SET `".$column."`='".$new_data."'
+            WHERE `username` = '".$username."' 
+         "); 
+      } catch (PDOexception $e){
+         if ($e ->errorInfo[1] == 1054)
+            echo $column." is not a valid column"."\n";
+         else
+            echo $e;
       }
    }
 }
+
 ?>
