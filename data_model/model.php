@@ -91,8 +91,34 @@ class Database_Reader
          WHERE `username`='".$username."' 
       ");
    }
+   
+   /* reads evrything from the database, and prints it*/
+   public function read_db($db){
+      $a = $this->dbh->query("SELECT * FROM `".$db."` ");
+      foreach ($a as $b){
+         for($i = 0; $i < count($b); $i += 1){
+            echo $b[$i] . " ";
+         }
+         echo "\n";
+      }
+   }
+   
+   /*change a specific column for a given row by their username
+   Do not include the `` characters when inputting data*/
+   public function change_user_column($column, $new_data, $username)
+   {
+      try{
+         $this->dbh->query(
+         "UPDATE `user` SET `".$column."`='".$new_data."'
+            WHERE `username` = '".$username."' 
+         "); 
+      } catch (PDOexception $e){
+         if ($e ->errorInfo[1] == 1054)
+            echo $column." is not a valid column"."\n";
+         else
+            echo $e;
+      }
+   }
 }
-
-
 
 ?>
