@@ -32,6 +32,12 @@ class Database_Reader
 
       return $data->fetch();
    }
+
+   public function get_all_registrations() {
+      $query = "SELECT * FROM `infosheet`";
+      $data = $this->dbh->query($query);
+      return $data->fetch();
+   }
    
    public function valid_user($username, $pw)
    {
