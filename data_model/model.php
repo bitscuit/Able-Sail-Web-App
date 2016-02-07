@@ -42,7 +42,7 @@ class Database_Reader
       
       if (count($users) == 0){
          //No users available
-         return FALSE;
+         return 0;
       } 
       elseif (count($users) == 1) {
          foreach ($users as $i){
@@ -51,8 +51,39 @@ class Database_Reader
       } else{
          // fatal error
          echo "Database error: too many users with same username";
-         return FALSE;
+         return 0;
       }
    }
+   
+   public function new_user($username, $email, $password)
+   {
+      try{
+         $users = $this->dbh->exec(
+            "INSERT INTO `user` VALUES(
+               0, 
+               '".$username."',
+               '".$email."',
+               '".$password."'
+            )"
+         );
+      } catch (PDOException $e){
+         if ($e->errorInfo[1] == 1062){
+            echo "Username or email already exists in DB \n";
+         } else { // other exception
+            echo $e;
+         }
+      }
+   }
+   
+   public function delete_user($username)
+   {
+      try{
+         $this->dbh->query(" DELETE FROM `user` WHERE `username`='".$username."' ");
+      } catch (PDOException $e){
+         echo $e;
+      }
+   }
+   
 }
+
 ?>
