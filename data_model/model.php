@@ -36,7 +36,7 @@ class Database_Reader
    public function get_all_registrations() {
       $query = "SELECT * FROM `infosheet`";
       $data = $this->dbh->query($query);
-      return $data->fetch();
+      return $data->fetchAll();
    }
    
    public function valid_user($username, $pw)
